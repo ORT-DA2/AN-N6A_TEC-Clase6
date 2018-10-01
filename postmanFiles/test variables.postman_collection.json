@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "31e22076-e0fb-4284-ac47-341927f73efb",
+		"name": "test variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51ddc198-d6c9-42b5-af3d-e8fde1fe7184",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"     pm.response.to.have.status(200);",
+							"    // http://blog.getpostman.com/2017/10/25/writing-tests-in-postman/",
+							"});",
+							"",
+							"",
+							"pm.test(\"response returns 3 cities\", function () {",
+							"    ",
+							"    let result = pm.response.json();",
+							"    ",
+							"    pm.expect(result.length).to.equal(3);",
+							"    ",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{customToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6f8ede0-1f4f-42ef-8283-ad916b567b65",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"customToken\", data.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"UserName\":\"juan89\",\n\t\"PassWord\": \"pwd\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
